@@ -1,16 +1,13 @@
 const {caesar} = require("../src/caesar.js");
 const {expect} = require("chai");
 
-describe("caesar() tests written by Madison", () => {
-
+describe("caesar() tests written by Mad", () => {
     // case1: the function exists
     it("should verify the function exists.", () => {
         expect(caesar).to.be.a("function");
     });
 
     // case2: happy path -- (+)encode
-    // complete & valid input is given
-    // returns correct encoded string
     it ("should return the correct encoded string, R-shift.", () => {    
         const input = "thinkful";
         const shift = 3;
@@ -21,8 +18,6 @@ describe("caesar() tests written by Madison", () => {
     });
 
     // case3: happy path -- (+)decode
-    // complete & valid input is given
-    // returns correct decoded string
     it ("should return the correct decoded string, R-shift.", () => {    
         const input = "wklqnixo";
         const shift = 3;
@@ -33,8 +28,6 @@ describe("caesar() tests written by Madison", () => {
     });
 
     // case4: happy path -- (-)encode
-    // complete & valid input is given
-    // returns correct encoded string
     it ("should return the correct encoded string, L-shift.", () => {    
         const input = "thinkful";
         const shift = -3;
@@ -45,8 +38,6 @@ describe("caesar() tests written by Madison", () => {
     });
 
     // case5: happy path -- (-)decode
-    // complete & valid input is given
-    // returns correct decoded string
     it ("should return the correct decoded string, L-shift.", () => {    
         const input = "qefkhcri";
         const shift = -3;
@@ -56,7 +47,7 @@ describe("caesar() tests written by Madison", () => {
         expect(actual).to.equal(expected);
     });
 
-    // case6-9: invalid value given for shift, returns false
+    // case6-9: invalid value given for shift
     it("should return false when the shift value is invalid.", () => {
         const input = "thinkful";
         const zero = caesar(input, 0);      // shift === 0
@@ -81,6 +72,4 @@ describe("caesar() tests written by Madison", () => {
         const actual = caesar("BPQA qa I amkzmb umaaiom!", 8, false)
         expect(actual).to.equal(expected);
     });
-
-
 });
