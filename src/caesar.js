@@ -1,26 +1,26 @@
-// Please refrain from tampering with the setup code provided here,
-// as the index.html and test files rely on this setup to work properly.
-// Only add code (helper methods, variables, etc.) within the scope
-// of the anonymous function on line 6
-
 /*
-
-caesar(input, shift, encode);
-input - string input to be encoded or decoded
-shift - Number input ... (+)num shift->  (-)num shift<- 
-encode - bool input if encode or decode ... default = true
+  caesar(input, shift, encode){}
+    accepts 3 parameters:
+      * input - string input to be encoded or decoded.
+      * shift - Number to represent how much to shift.
+          (+)shiftRight  (-)shiftLeft 
+      * encode - boolean to indicate if you should encode or decode the message. 
+    returns:
+      * if encoded - a string containing the encrypted message.
+      * if decoded - a string containing the decrypted text. 
 */
 
 const caesarModule = (function () {
-
-  const END_alphabet = 122; // [97,122] = lower letter alphabet 
   const START_alphabet = 97;
+  const END_alphabet = 122; // [97,122] = lower letter alphabet ASCII
 
-  function alphabetLoop(shift){  // HELPER 1: wraps around the alphabet
+  function alphabetLoop(shift){  
+    /* HELPER -- 'wraps' the letter around the end/beginning of the alphabet */
     if(shift < 0) return END_alphabet + shift;
     return START_alphabet + shift;
   }
-  function encoder(letter, shift, encode = true) { // HELPER 2: encodes/decodes
+  function encoder(letter, shift, encode = true) { 
+    /* HELPER -- encodes/decodes a letter based on the direction of the shift */
     let shifted = letter;
     encode ? shifted += shift : shifted -= shift;
 
@@ -35,25 +35,25 @@ const caesarModule = (function () {
 
     return shifted;
   }
+  
   function caesar(input, shift, encode = true) {
-
+  /* MAIN -- performs user input validation, calls functions, assembles the complete string to be exported. */
     if(!shift || shift < -25 || shift > 25 || shift === 0) return false;
 
     let coded = "";
     let letter = '';
 
-    input = input.toLowerCase();
+    input = input.toLowerCase(); // ignore capital letters
 
     for(let i = 0; i < input.length; i++) {
       let curr_char = input.charCodeAt(i);
-
       if(curr_char >= START_alphabet && curr_char <= END_alphabet){
         encode ? 
-          letter = encoder(curr_char, shift) : // encode
+          letter = encoder(curr_char, shift) :        // encode
           letter = encoder(curr_char, shift, false) ; // decode
         coded += String.fromCharCode(letter);
-      } else {                               // keep whitespace & symbols
-        coded += String.fromCharCode(curr_char); 
+      } else {                               
+        coded += String.fromCharCode(curr_char); // keep whitespace & symbols
       }
     }
     return coded;
