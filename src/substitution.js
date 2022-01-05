@@ -1,12 +1,12 @@
-/**
-substitution(input, alphabet, encode){}
-  accepts 3 parameters: 
-    * input - string to be encoded or decoded.
-    * alphabet - string to represent a substitution alphabet.
-    * encode - boolean to indicate if you should encode or decode the message.
-  returns:
-    * if encoded - a string that's been encrypted based on sub. alphabet
-    * if decoded - a string that's been decrypted based on sub. alphabet
+/*
+  substitution(input, alphabet, encode){}
+    accepts 3 parameters: 
+      * input - string to be encoded or decoded.
+      * alphabet - string to represent a substitution alphabet.
+      * encode - boolean to indicate if you should encode or decode the message.
+    returns:
+      * if encoded - a string that's been encrypted based on sub. alphabet.
+      * if decoded - a string that's been decrypted based on sub. alphabet.
  */
 const substitutionModule = (function () {
 
@@ -22,20 +22,20 @@ const substitutionModule = (function () {
   }
 
   function substitution(input="", alphabet="", encode = true) {
+    /* MAIN -- performs user input validation, calls functions, assembles result string before being exported. */
     const subAlph = Array.from(alphabet);
     const regAlph = Array.from("abcdefghijklmnopqrstuvwxyz");
 
     // substitution alphabet only has unique characters & is valid length
     if(!isUnique(subAlph) || alphabet.length !== 26 || !alphabet || !input) return false;
 
-    input = input.toLowerCase();
+    input = input.toLowerCase();  // ignore capital letters
 
     if(encode){
       let encoded = "";
       for(let i = 0; i < input.length; i++){
         const curr_char = input.charAt(i);
-
-        curr_char === " " ?       // maintain spaces and then encrypt the string
+        curr_char === " " ?                // maintain spaces 
           encoded += curr_char : 
           encoded += subAlph[regAlph.findIndex((item) => item === curr_char)];
       }
@@ -45,8 +45,7 @@ const substitutionModule = (function () {
     let decoded = "";
     for(let i = 0; i < input.length; i++){
       const curr_char = input.charAt(i);
-
-      curr_char === " " ?       // maintain spaces while decrypting the string
+      curr_char === " " ?                  // maintain spaces 
         decoded += curr_char : 
         decoded += regAlph[subAlph.findIndex((item) => item === curr_char)];
     }
