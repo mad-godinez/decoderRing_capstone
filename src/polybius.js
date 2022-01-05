@@ -1,16 +1,16 @@
 /*
-polybius() 
-  accepts 2 parameters:
-    input - string to be encoded or decoded.
-    encode - boolean to indicate if you should encode or decode the message.
-  returns: 
-    if encoded - string of numerical coordinate pairs representing input message
-    if decoded - string of text representing input coordinates 
+  polybius(input, encode){} 
+    accepts 2 parameters:
+      * input - string to be encoded or decoded.
+      * encode - boolean to indicate if you should encode or decode the message.
+    returns: 
+      * if encoded - string of numerical coordinate pairs representing input message.
+      * if decoded - string of text representing input coordinates. 
 */
 const polybiusModule = (function () {
 
   function makeChart(){
-/* HELPER -- creates a polybius chart */
+/* HELPER -- creates a polybius 'chart', an array of letter objects */
     const polybox = [
       {
         "letter" : 'a',
@@ -137,7 +137,7 @@ const polybiusModule = (function () {
     return polybox;
   }
   function coordinates(target){
-    /* HELPER
+    /* HELPER -- 
       ** when encoding ... 
         * accepts: target character to find in array of letter objects
         * returns: the string combination of col+row where the letter was found
@@ -148,12 +148,12 @@ const polybiusModule = (function () {
     const chart = makeChart();
 
     if(typeof target === "string"){
-      if(target === 'i' || target === 'j') return "42";
+      if(target === 'i' || target === 'j') return "42";      // accommodating i/j per instructions
 
       const char_obj = chart.find((item) => {if(item.letter === target) return item;});
       return (String(char_obj.col) + String(char_obj.row));
     } else {
-      if(target[0] == 4 && target[1] == 2) return ['i', 'j'];
+      if(target[0] == 4 && target[1] == 2) return ['i', 'j']; // accommodating i/j per instructions
 
       const char_obj = chart.find((item) => {
         if(item.col == target[0] && item.row == target[1]) return item;});
@@ -162,20 +162,23 @@ const polybiusModule = (function () {
   }
 
   function polybius(input, encode = true) {
+    /* MAIN -- performs user input validation, calls functions, assembles result string before being exported. */
     
-    input = input.toLowerCase();
+    input = input.toLowerCase();  // ignore capital letters
    
     if(encode){
       let encoded = "";
       for(let i = 0; i < input.length; i++){
         const current_ch = input.charAt(i);
         current_ch === " " ? 
-            encoded += current_ch : 
+            encoded += current_ch :           // maintain spaces     
             encoded += coordinates(current_ch);
       }
       return encoded;
     }
-    // handles input string with incorrect num of coordinate pairs + spaces
+    
+    // input string with incorrect num of coordinate pairs + spaces
+    // relevant for decoding only
     if(!input.includes(" ") && input.length % 2 !== 0 
       || input.includes(" ") && input.length % 2 == 0) return encode;
 
@@ -183,13 +186,12 @@ const polybiusModule = (function () {
     for(let i = 0; i < input.length; i+=2){
       const first_char = input.charAt(i);
       const second_char = input.charAt(i+1);
-      if(first_char === " ") {
+      if(first_char === " ") {    // maintain spaces
         decoded += first_char;
         i--;    // ignores odd # to maintain accurate coordinate pairs after " "
       } else {
         const current_coord = [first_char, second_char];
-        let current_letter = coordinates(current_coord);
-        decoded += current_letter;
+        decoded += coordinates(current_coord);
       }
     }
     return decoded;
