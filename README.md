@@ -3,7 +3,7 @@
 ## About Me :
 - These days, I go by "Mad", which is pronounced like the 'mod' in "modulo", and is _not_ an indication that I'm angry :-)
 - This is the first "Capstone Project" I've completed during my Software Engineering course at Thinkful.
-- I am a recent college graduate from Texas State University, where I studied the Spanish Langauge & Computer Science. (odd combo, I know) 
+- I am a recent college graduate from Texas State University, where I studied the Spanish Language & Computer Science.
 - Even though my academic background is mainly in C++, I'm having a ton of fun learning JavaScript, HTML, and CSS! 
 
 ## About the "Decoder Ring" Assignment : 
